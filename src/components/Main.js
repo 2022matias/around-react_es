@@ -1,39 +1,64 @@
+import React from "react";
 import Pencil from "../images/pencil.png";
 import editButton from "../images/edit-button.png";
 import profileAddButton from "../images/add-button.png";
 import closeIcon from "../images/close-icon.png";
+import avatarImage from "../images/Avatar.png";
 
 function Main() {
+
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(true);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(true);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(true);
+  const [isConfirmPopupOpen, setIsconfirmPopupOpen] = React.useState(true);
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+  }
+
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+  }
+
+  function handleConfirmClick() {
+    setIsconfirmPopupOpen(!isConfirmPopupOpen);
+  }
+
+
 	return(
 		<>
 			<section className="profile">
-        <div className="profile__box">
-          <img src="#" className="profile__avatar" alt="imagen de Jacques Cousteau"/>
+        <div className="profile__box" onClick={handleEditAvatarClick}>
+          <img src={avatarImage} className="profile__avatar" alt="imagen de Jacques Cousteau"/>
           <img src={Pencil} className="profile__pencil visibility" alt="lapiz de edición de foto" />
         </div>
         <div className="profile__info">
           <h2 className="profile__jacques"></h2>
           <img
             src={editButton}
-            className="profile__edit-button"
+            className="profile__edit-button" onClick={handleEditProfileClick}
             alt="boton para editar el perfil"
           />
           <p className="profile__explorer"></p>
         </div>
         <img
           src={profileAddButton}
-          className="profile__add-button"
+          className="profile__add-button" onClick={handleAddPlaceClick}
           alt="boton para agregar imagenes"
         />
       </section>
 
       
 
-      <section className="popup popup-visible">
+      <section className={`popup ${isEditProfilePopupOpen ? 'popup-visible' : ''}`}>
         <form className="popup__container" noValidate>
           <img
             src={closeIcon}
-            className="popup__close-icon"
+            className="popup__close-icon" onClick={handleEditProfileClick}
             alt="boton para cerrar el formulario"
           />
           <h3 className="popup__title">Editar perfil</h3>
@@ -62,11 +87,11 @@ function Main() {
         <div className="fondo"></div>
       </section>
 
-      <section className="popup popup_card visibility">
+      <section className={`popup popup_card ${isAddPlacePopupOpen ? 'visibility' : ''}`}>
         <form className="popup__container popup__container_card">
           <img
             src={closeIcon}
-            className="popup__close-icon-card"
+            className="popup__close-icon-card" onClick={handleAddPlaceClick}
             alt="boton para cerrar el formulario"
           />
           <h3 className="popup__title">Nuevo lugar</h3>
@@ -92,11 +117,11 @@ function Main() {
         <div className="fondo"></div>
       </section>
 
-      <section className="popup popup_question popup-visible">
+      <section className={`popup popup_question ${isConfirmPopupOpen ? 'popup-visible' : ''}`}>
         <form className="popup__container popup__container-confirm" noValidate>
           <img
             src={closeIcon}
-            className="popup__close-icon close-question"
+            className="popup__close-icon close-question" onClick={handleConfirmClick}
             alt="boton para cerrar el formulario"
           />
           <h3 className="popup__title popup__title-confirm">¿Estás seguro?</h3>
@@ -105,11 +130,11 @@ function Main() {
         <div className="fondo"></div>
       </section>
 
-      <section className="popup popup_avatar popup-visible">
+      <section className={`popup popup_avatar ${isEditAvatarPopupOpen ? 'popup-visible' : ''}`}>
         <form className="popup__container popup__container-avatar" noValidate>
           <img
             src={closeIcon}
-            className="popup__close-icon close-avatar"
+            className="popup__close-icon close-avatar" onClick={handleEditAvatarClick}
             alt="boton para cerrar el formulario"
           />
           <h3 className="popup__title popup__title-avatar">Cambiar foto de perfil</h3>
@@ -141,7 +166,7 @@ function Main() {
                 <button className="element__heart"></button>
                 <div className="element__contador"></div>
               </div>
-              <button className="element__trash"></button>
+              <button className="element__trash" onClick={handleConfirmClick}></button>
             </div>
           </div>
         </article>

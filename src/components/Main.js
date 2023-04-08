@@ -30,7 +30,7 @@ function Main() {
       
 
       <section className="popup popup-visible">
-        <form className="popup__container" novalidate>
+        <form className="popup__container" noValidate>
           <img
             src={closeIcon}
             className="popup__close-icon"
@@ -42,8 +42,8 @@ function Main() {
             type="text"
             className="popup__name popup__input"
             placeholder="Inserte su Nombre"
-            minlength="2"
-            maxlength="40"
+            minLength="2"
+            maxength="40"
             required
           />
           <span className="popup__name-input-error"></span>
@@ -52,8 +52,8 @@ function Main() {
             type="text"
             className="popup__skill popup__input"
             placeholder="Inserte su Skill"
-            minlength="2"
-            maxlength="200"
+            minLength="2"
+            maxength="200"
             required
           />
           <span className="popup__skill-input-error"></span>
@@ -75,8 +75,8 @@ function Main() {
             type="text"
             className="popup__place popup__input"
             placeholder="Título"
-            minlength="2"
-            maxlength="30"
+            minLength="2"
+            maxLength="30"
             required
           />
           <span className="popup__place-input-error"></span>
@@ -93,7 +93,7 @@ function Main() {
       </section>
 
       <section className="popup popup_question popup-visible">
-        <form className="popup__container popup__container-confirm" novalidate>
+        <form className="popup__container popup__container-confirm" noValidate>
           <img
             src={closeIcon}
             className="popup__close-icon close-question"
@@ -106,7 +106,7 @@ function Main() {
       </section>
 
       <section className="popup popup_avatar popup-visible">
-        <form className="popup__container popup__container-avatar" novalidate>
+        <form className="popup__container popup__container-avatar" noValidate>
           <img
             src={closeIcon}
             className="popup__close-icon close-avatar"

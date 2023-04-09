@@ -12,6 +12,16 @@ function Main() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(true);
   const [isConfirmPopupOpen, setIsconfirmPopupOpen] = React.useState(true);
 
+  const [user, setUser] = React.useState();
+  React.useEffect(() => {
+    fetch('https://nomoreparties.co/v1/web_es_cohort_04/users/me', `61c6f68c-f2f6-410f-a75d-8fc57629e184`)
+		.then((res) => res.json())
+    .then(json => {
+      setUser(json.res)
+    })
+		.catch((res) => Promise.reject(`Error: ${res.status}`));
+  }, []);
+
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
   }

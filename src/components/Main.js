@@ -4,6 +4,8 @@ import editButton from "../images/edit-button.png";
 import profileAddButton from "../images/add-button.png";
 import closeIcon from "../images/close-icon.png";
 import avatarImage from "../images/Avatar.png";
+import { api } from "../utils/api";
+import Card from "./Cards";
 
 function Main() {
 
@@ -12,14 +14,21 @@ function Main() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(true);
   const [isConfirmPopupOpen, setIsconfirmPopupOpen] = React.useState(true);
 
-  const [user, setUser] = React.useState();
+  const [userName, setUserName] = React.useState();
+  const [userDescription, setUserDescription] = React.useState();
+  const [userAvatar, setUserAvatar] = React.useState();
+
+  const [cards, setCards] = React.useState({});
+
   React.useEffect(() => {
-    fetch('https://nomoreparties.co/v1/web_es_cohort_04/users/me', `61c6f68c-f2f6-410f-a75d-8fc57629e184`)
-		.then((res) => res.json())
-    .then(json => {
-      setUser(json.res)
+    api.getUserInfo().then((res) => {
+      setUserName(res.name);
+      setUserDescription(res.about);
+      setUserAvatar(res.avatar);
     })
-		.catch((res) => Promise.reject(`Error: ${res.status}`));
+    api.getCards().then((res) => {
+      setCards(res);
+    })
   }, []);
 
   function handleEditAvatarClick() {
@@ -43,17 +52,17 @@ function Main() {
 		<>
 			<section className="profile">
         <div className="profile__box" onClick={handleEditAvatarClick}>
-          <img src={avatarImage} className="profile__avatar" alt="imagen de Jacques Cousteau"/>
+          <img src={userAvatar} className="profile__avatar" alt="imagen de Jacques Cousteau"/>
           <img src={Pencil} className="profile__pencil visibility" alt="lapiz de edición de foto" />
         </div>
         <div className="profile__info">
-          <h2 className="profile__jacques"></h2>
+          <h2 className="profile__jacques">{userName}</h2>
           <img
             src={editButton}
             className="profile__edit-button" onClick={handleEditProfileClick}
             alt="boton para editar el perfil"
           />
-          <p className="profile__explorer"></p>
+          <p className="profile__explorer">{userDescription}</p>
         </div>
         <img
           src={profileAddButton}
@@ -160,12 +169,20 @@ function Main() {
         <div className="fondo"></div>
       </section>
 
-      <section className="elements"></section>
+      <section className="elements">
+        {cards.map((card) => {
+          return (
+            <Card key={card._id} />
+          )
+        })}
+      </section>
 
-      <template id="elements">
+      {/* {cards.map((card) => {
+        return (
+          <div id="elements">
         <article className="element">
           <img
-            src="./images/valle-de-yosemite1.jpg"
+            src={card.link}
             className="element__image"
             alt="foto del valle de yosemite"
           />
@@ -180,7 +197,11 @@ function Main() {
             </div>
           </div>
         </article>
-      </template>
+      </div>
+        );
+      }) } */}
+      
+      
 
       <section className="enlarge-image no-vision">
         <div className="enlarge-image__container">

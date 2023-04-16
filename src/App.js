@@ -1,9 +1,54 @@
+import React from "react";
+import { api } from "./utils/api";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import PopupWithForm from "./components/PopupWithForm";
 
-function App() {
+export default function App() {
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(true);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(true);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(true);
+  const [isConfirmPopupOpen, setIsconfirmPopupOpen] = React.useState(true);
+
+  const [userName, setUserName] = React.useState();
+  const [userDescription, setUserDescription] = React.useState();
+  const [userAvatar, setUserAvatar] = React.useState();
+
+  const [cards, setCards] = React.useState([]);
+  const [selectedCard, setSelectedCard] = React.useState();
+
+  function handleCardClick() {
+    setSelectedCard();
+  }
+
+  React.useEffect(() => {
+    api.getUserInfo().then((res) => {
+      setUserName(res.name);
+      setUserDescription(res.about);
+      setUserAvatar(res.avatar);
+    })
+    api.getCards().then((res) => {
+      setCards(res);
+    })
+  }, []);
+
+  function onEditAvatarClick() {
+    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+  }
+
+  function onEditProfileClick() {
+    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+  }
+
+  function onAddPlaceClick() {
+    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+  }
+
+  function onCardClick() {
+    setIsconfirmPopupOpen(!isConfirmPopupOpen);
+  }
+
   return (
     <div className="page">
       <Header />
@@ -44,5 +89,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

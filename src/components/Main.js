@@ -3,76 +3,67 @@ import Pencil from "../images/pencil.png";
 import editButton from "../images/edit-button.png";
 import profileAddButton from "../images/add-button.png";
 import closeIcon from "../images/close-icon.png";
-import avatarImage from "../images/Avatar.png";
-import { api } from "../utils/api";
 import Card from "./Cards";
 
-function Main() {
-
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(true);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(true);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(true);
-  const [isConfirmPopupOpen, setIsconfirmPopupOpen] = React.useState(true);
-
-  const [userName, setUserName] = React.useState();
-  const [userDescription, setUserDescription] = React.useState();
-  const [userAvatar, setUserAvatar] = React.useState();
-
-  const [cards, setCards] = React.useState([]);
-  const [selectedCard, setSelectedCard] = React.useState();
-
-  React.useEffect(() => {
-    api.getUserInfo().then((res) => {
-      setUserName(res.name);
-      setUserDescription(res.about);
-      setUserAvatar(res.avatar);
-    })
-    api.getCards().then((res) => {
-      setCards(res);
-    })
-  }, []);
-
-  function onEditAvatarClick() {
-    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
-  }
-
-  function onEditProfileClick() {
-    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
-  }
-
-  function onAddPlaceClick() {
-    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
-  }
-
-  function onCardClick() {
-    setIsconfirmPopupOpen(!isConfirmPopupOpen);
-  }
-
-
+  
+function Main(props) {
 	return(
 		<>
 			<section className="profile">
-        <div className="profile__box" onClick={onEditAvatarClick}>
-          <img src={userAvatar} className="profile__avatar" alt="imagen de Jacques Cousteau"/>
+        <div className="profile__box" onClick={props.onEditAvatarClick}>
+          <img src={props.userAvatar} className="profile__avatar" alt="imagen de Jacques Cousteau"/>
           <img src={Pencil} className="profile__pencil visibility" alt="lapiz de edición de foto" />
         </div>
         <div className="profile__info">
-          <h2 className="profile__jacques">{userName}</h2>
+          <h2 className="profile__jacques">{props.userName}</h2>
           <img
             src={editButton}
-            className="profile__edit-button" onClick={onEditProfileClick}
+            className="profile__edit-button" onClick={props.onEditProfileClick}
             alt="boton para editar el perfil"
           />
-          <p className="profile__explorer">{userDescription}</p>
+          <p className="profile__explorer">{props.userDescription}</p>
         </div>
         <img
           src={profileAddButton}
-          className="profile__add-button" onClick={onAddPlaceClick}
+          className="profile__add-button" onClick={props.onAddPlaceClick}
           alt="boton para agregar imagenes"
         />
       </section>
 
       
+
+      <section className="elements">
+        {props.cards.map((card) => {
+          return (
+            <Card key={card._id} card={card} onClick={props.onCardClick} />
+          )
+        })}
+      </section>
+
+
+      <section className="enlarge-image no-vision">
+        <div className="enlarge-image__container">
+          <h3 className="enlarge-image__title"></h3>
+          <img
+            src="./images/valle-de-yosemite1.jpg"
+            className="enlarge-image__image"
+            alt="imagen ampliada"
+          />
+          <img
+            src={closeIcon}
+            className="enlarge-image__close-image"
+            alt="boton para cerrar el formulario"
+          />
+        </div>
+        <div className="fondo"></div>
+      </section>
+		</>
+	);
+}
+
+export default Main;
+
+
 {/* 
       <section className={`popup ${isEditProfilePopupOpen ? 'popup-visible' : ''}`}>
         <form className="popup__container" noValidate>
@@ -169,34 +160,3 @@ function Main() {
         </form>
         <div className="fondo"></div>
       </section> */}
-
-      <section className="elements">
-        {cards.map((card) => {
-          return (
-            <Card key={card._id} card={card} onClick={onCardClick} />
-          )
-        })}
-      </section>
-
-
-      <section className="enlarge-image no-vision">
-        <div className="enlarge-image__container">
-          <h3 className="enlarge-image__title"></h3>
-          <img
-            src="./images/valle-de-yosemite1.jpg"
-            className="enlarge-image__image"
-            alt="imagen ampliada"
-          />
-          <img
-            src={closeIcon}
-            className="enlarge-image__close-image"
-            alt="boton para cerrar el formulario"
-          />
-        </div>
-        <div className="fondo"></div>
-      </section>
-		</>
-	);
-}
-
-export default Main;

@@ -18,7 +18,8 @@ function Main() {
   const [userDescription, setUserDescription] = React.useState();
   const [userAvatar, setUserAvatar] = React.useState();
 
-  const [cards, setCards] = React.useState({});
+  const [cards, setCards] = React.useState([]);
+  const [selectedCard, setSelectedCard] = React.useState();
 
   React.useEffect(() => {
     api.getUserInfo().then((res) => {
@@ -31,19 +32,19 @@ function Main() {
     })
   }, []);
 
-  function handleEditAvatarClick() {
+  function onEditAvatarClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
   }
 
-  function handleEditProfileClick() {
+  function onEditProfileClick() {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
   }
 
-  function handleAddPlaceClick() {
+  function onAddPlaceClick() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
-  function handleConfirmClick() {
+  function onCardClick() {
     setIsconfirmPopupOpen(!isConfirmPopupOpen);
   }
 
@@ -51,7 +52,7 @@ function Main() {
 	return(
 		<>
 			<section className="profile">
-        <div className="profile__box" onClick={handleEditAvatarClick}>
+        <div className="profile__box" onClick={onEditAvatarClick}>
           <img src={userAvatar} className="profile__avatar" alt="imagen de Jacques Cousteau"/>
           <img src={Pencil} className="profile__pencil visibility" alt="lapiz de edición de foto" />
         </div>
@@ -59,25 +60,25 @@ function Main() {
           <h2 className="profile__jacques">{userName}</h2>
           <img
             src={editButton}
-            className="profile__edit-button" onClick={handleEditProfileClick}
+            className="profile__edit-button" onClick={onEditProfileClick}
             alt="boton para editar el perfil"
           />
           <p className="profile__explorer">{userDescription}</p>
         </div>
         <img
           src={profileAddButton}
-          className="profile__add-button" onClick={handleAddPlaceClick}
+          className="profile__add-button" onClick={onAddPlaceClick}
           alt="boton para agregar imagenes"
         />
       </section>
 
       
-
+{/* 
       <section className={`popup ${isEditProfilePopupOpen ? 'popup-visible' : ''}`}>
         <form className="popup__container" noValidate>
           <img
             src={closeIcon}
-            className="popup__close-icon" onClick={handleEditProfileClick}
+            className="popup__close-icon" onClick={onEditProfileClick}
             alt="boton para cerrar el formulario"
           />
           <h3 className="popup__title">Editar perfil</h3>
@@ -110,7 +111,7 @@ function Main() {
         <form className="popup__container popup__container_card">
           <img
             src={closeIcon}
-            className="popup__close-icon-card" onClick={handleAddPlaceClick}
+            className="popup__close-icon" onClick={onAddPlaceClick}
             alt="boton para cerrar el formulario"
           />
           <h3 className="popup__title">Nuevo lugar</h3>
@@ -140,7 +141,7 @@ function Main() {
         <form className="popup__container popup__container-confirm" noValidate>
           <img
             src={closeIcon}
-            className="popup__close-icon close-question" onClick={handleConfirmClick}
+            className="popup__close-icon close-question" onClick={onCardClick}
             alt="boton para cerrar el formulario"
           />
           <h3 className="popup__title popup__title-confirm">¿Estás seguro?</h3>
@@ -153,7 +154,7 @@ function Main() {
         <form className="popup__container popup__container-avatar" noValidate>
           <img
             src={closeIcon}
-            className="popup__close-icon close-avatar" onClick={handleEditAvatarClick}
+            className="popup__close-icon close-avatar" onClick={onEditAvatarClick}
             alt="boton para cerrar el formulario"
           />
           <h3 className="popup__title popup__title-avatar">Cambiar foto de perfil</h3>
@@ -167,41 +168,16 @@ function Main() {
           <button className="popup__button popup__button-avatar">Guardar</button>
         </form>
         <div className="fondo"></div>
-      </section>
+      </section> */}
 
       <section className="elements">
         {cards.map((card) => {
           return (
-            <Card key={card._id} />
+            <Card key={card._id} card={card} onClick={onCardClick} />
           )
         })}
       </section>
 
-      {/* {cards.map((card) => {
-        return (
-          <div id="elements">
-        <article className="element">
-          <img
-            src={card.link}
-            className="element__image"
-            alt="foto del valle de yosemite"
-          />
-          <div className="element__background">
-            <div className="element__info">
-              <h3 className="element__name"></h3>
-              <div className="element__div">
-                <button className="element__heart"></button>
-                <div className="element__contador"></div>
-              </div>
-              <button className="element__trash" onClick={handleConfirmClick}></button>
-            </div>
-          </div>
-        </article>
-      </div>
-        );
-      }) } */}
-      
-      
 
       <section className="enlarge-image no-vision">
         <div className="enlarge-image__container">

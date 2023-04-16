@@ -1,7 +1,4 @@
-import card from "./Main";
-import handleConfirmClick from "./Main"
-
-function Card() {
+function Card({ card, onClick }) {
 	return (
 		<>
 			<article className="element">
@@ -17,7 +14,7 @@ function Card() {
                 <button className="element__heart"></button>
                 <div className="element__contador"></div>
               </div>
-              <button className="element__trash" onClick={handleConfirmClick}></button>
+              <button className="element__trash" onClick={onClick}></button>
             </div>
           </div>
         </article>

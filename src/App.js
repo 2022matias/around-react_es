@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import PopupWithForm from "./components/PopupWithForm";
+import closeIcon from "./images/close-icon.png";
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(true);
@@ -16,11 +17,7 @@ export default function App() {
   const [userAvatar, setUserAvatar] = React.useState();
 
   const [cards, setCards] = React.useState([]);
-  const [selectedCard, setSelectedCard] = React.useState();
-
-  function handleCardClick() {
-    setSelectedCard();
-  }
+  const [selectedCard, setSelectedCard] = React.useState(true);
 
   React.useEffect(() => {
     api.getUserInfo().then((res) => {
@@ -45,47 +42,120 @@ export default function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
-  function onCardClick() {
+  function onConfirmClick() {
     setIsconfirmPopupOpen(!isConfirmPopupOpen);
   }
+
+  function handleCardClick() {
+    setSelectedCard(!selectedCard);
+  }
+
 
   return (
     <div className="page">
       <Header />
-      <Main />
+      <Main userName={userName} 
+      userDescription={userDescription} 
+      userAvatar={userAvatar} 
+      cards={cards} 
+      onEditAvatarClick={onEditAvatarClick} 
+      onEditProfileClick={onEditProfileClick} 
+      onAddPlaceClick={onAddPlaceClick} 
+      onCardClick={onConfirmClick}
+      />
       <Footer />
-      {/* <PopupWithForm name={'popup_profile'} 
-        isOpen={isEditProfilePopupOpen} 
-        openClass={'popup-visible'} 
-        onClosePopup={onEditProfileClick} 
-        classForm={''} 
-        titleText={'Editar perfil'} 
-        classButton={''} 
-        buttonText={'Guardar'} />
-        <PopupWithForm name={'popup_card'} 
-        isOpen={isAddPlacePopupOpen} 
-        openClass={'visibility'} 
-        onClosePopup={onAddPlaceClick} 
-        classForm={'popup__container_card'} 
-        titleText={'Nuevo lugar'} 
-        classButton={''} 
-        buttonText={'Crear'} />
-        <PopupWithForm name={'popup_question'} 
-        isOpen={isConfirmPopupOpen} 
-        openClass={'popup-visible'} 
-        onClosePopup={onCardClick} 
-        classForm={'popup__container-confirm'} 
-        titleText={'¿Estás seguro?'} 
-        classButton={'confirm'} 
-        buttonText={'Si'} />
-        <PopupWithForm name={'popup_avatar'} 
-        isOpen={isEditAvatarPopupOpen} 
-        openClass={'popup-visible'} 
-        onClosePopup={onEditAvatarClick} 
-        classForm={'popup__container-avatar'} 
-        titleText={'Cambiar foto de perfil'} 
-        classButton={''} 
-        buttonText={'Guardar'} /> */}
+        <PopupWithForm name={'profile'} 
+        isOpen={isEditProfilePopupOpen}>
+          <form className="popup__container" noValidate>
+          <img
+            src={closeIcon}
+            className="popup__close-icon" onClick={onEditProfileClick}
+            alt="boton para cerrar el formulario"
+          />
+          <h3 className="popup__title">Editar perfil</h3>
+          <input
+            id="popup__name-input"
+            type="text"
+            className="popup__name popup__input"
+            placeholder="Inserte su Nombre"
+            minLength="2"
+            maxength="40"
+            required
+          />
+          <span className="popup__name-input-error"></span>
+          <input
+            id="popup__skill-input"
+            type="text"
+            className="popup__skill popup__input"
+            placeholder="Inserte su Skill"
+            minLength="2"
+            maxength="200"
+            required
+          />
+          <span className="popup__skill-input-error"></span>
+          <button className="popup__button">Guardar</button>
+        </form>
+        </PopupWithForm>
+        <PopupWithForm name={'card'} 
+        isOpen={isAddPlacePopupOpen}>
+          <form className="popup__container popup__container_card">
+          <img
+            src={closeIcon}
+            className="popup__close-icon" onClick={onAddPlaceClick}
+            alt="boton para cerrar el formulario"
+          />
+          <h3 className="popup__title">Nuevo lugar</h3>
+          <input
+            id="popup__place-input"
+            type="text"
+            className="popup__place popup__input"
+            placeholder="Título"
+            minLength="2"
+            maxLength="30"
+            required
+          />
+          <span className="popup__place-input-error"></span>
+          <input
+            id="popup__url-input"
+            type="url"
+            className="popup__url popup__input"
+            placeholder="Enlace a la imagen"
+          />
+          <span className="popup__url-input-error"></span>
+          <button className="popup__button">Crear</button>
+        </form>
+        </PopupWithForm>
+        <PopupWithForm name={'question'} 
+        isOpen={isConfirmPopupOpen}>
+          <form className="popup__container popup__container-confirm" noValidate>
+          <img
+            src={closeIcon}
+            className="popup__close-icon close-question" onClick={onConfirmClick}
+            alt="boton para cerrar el formulario"
+          />
+          <h3 className="popup__title popup__title-confirm">¿Estás seguro?</h3>
+          <button className="popup__button confirm">Si</button>
+        </form>
+        </PopupWithForm>
+        <PopupWithForm name={'avatar'} 
+        isOpen={isEditAvatarPopupOpen}>
+          <form className="popup__container popup__container-avatar" noValidate>
+          <img
+            src={closeIcon}
+            className="popup__close-icon close-avatar" onClick={onEditAvatarClick}
+            alt="boton para cerrar el formulario"
+          />
+          <h3 className="popup__title popup__title-avatar">Cambiar foto de perfil</h3>
+          <input
+            id="popup__avatar-input"
+            type="url"
+            className="popup__url popup__input"
+            placeholder="Enlace a la imagen"
+          />
+          <span className="popup__avatar-input-error"></span>
+          <button className="popup__button popup__button-avatar">Guardar</button>
+        </form>
+        </PopupWithForm>
     </div>
   );
 }

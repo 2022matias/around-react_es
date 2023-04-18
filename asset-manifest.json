@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b08e8eec.css",
+    "main.js": "/static/js/main.efe42cd9.js",
+    "static/media/Inter-Black.woff?v=3.19": "/static/media/Inter-Black.fd37f7e052bea1018058.woff",
+    "static/media/Inter-Regular.woff?v=3.19": "/static/media/Inter-Regular.34ed58565339f4f3be40.woff",
+    "static/media/Inter-Black.woff2?v=3.19": "/static/media/Inter-Black.141c7af6ed109b318513.woff2",
+    "static/media/Inter-Regular.woff2?v=3.19": "/static/media/Inter-Regular.4c96ed73beaf6d1e6cc7.woff2",
+    "static/media/Inter-Bold.woff?v=3.19": "/static/media/Inter-Bold.93c1301bd9f486c573b3.woff",
+    "static/media/Inter-Medium.woff?v=3.19": "/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
+    "static/media/Inter-Bold.woff2?v=3.19": "/static/media/Inter-Bold.ec64ea577b0349e055ad.woff2",
+    "static/media/Inter-Medium.woff2?v=3.19": "/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
+    "index.html": "/index.html",
+    "main.b08e8eec.css.map": "/static/css/main.b08e8eec.css.map",
+    "main.efe42cd9.js.map": "/static/js/main.efe42cd9.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b08e8eec.css",
+    "static/js/main.efe42cd9.js"
+  ]
+}

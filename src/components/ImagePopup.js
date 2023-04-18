@@ -6,9 +6,9 @@ export default function ImagePopup(props) {
 		<>
 		<section className={`enlarge-image ${props.isOpen ? 'no-vision' : ''}`}>
         <div className="enlarge-image__container">
-          <h3 className="enlarge-image__title">{card.name}</h3>
+          <h3 className="enlarge-image__title">{props.card.name}</h3>
           <img 
-            src={card.link}
+            src={props.card.link}
             className="enlarge-image__image"
             alt="imagen ampliada"
           />

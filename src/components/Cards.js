@@ -1,9 +1,13 @@
 function Card(props) {
+
+  function handleClickCard () {
+    props.onCardClick(props.card)
+  }
 	return (
 		<>
 			<article className="element">
           <img 
-            onClick={props.onCardClick}
+            onClick={handleClickCard}
             src={props.card.link} 
             className="element__image"
             alt="foto del valle de yosemite"

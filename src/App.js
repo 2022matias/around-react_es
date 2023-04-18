@@ -12,14 +12,15 @@ export default function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(true);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(true);
   const [isConfirmPopupOpen, setIsconfirmPopupOpen] = React.useState(true);
+  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(true);
 
   const [userName, setUserName] = React.useState();
   const [userDescription, setUserDescription] = React.useState();
   const [userAvatar, setUserAvatar] = React.useState();
 
   const [cards, setCards] = React.useState([]);
-  const [selectedCard, setSelectedCard] = React.useState(true);
-
+  const [selectedCard, setSelectedCard] = React.useState({});
+  
   React.useEffect(() => {
     api.getUserInfo().then((res) => {
       setUserName(res.name);
@@ -47,8 +48,9 @@ export default function App() {
     setIsconfirmPopupOpen(!isConfirmPopupOpen);
   }
 
-  function onCardClick() {
-    setSelectedCard(!selectedCard);
+  function onCardClick(card) {
+    setIsImagePopupOpen(!isImagePopupOpen);
+    setSelectedCard(card)
   }
 
 
@@ -158,8 +160,9 @@ export default function App() {
           <button className="popup__button popup__button-avatar">Guardar</button>
         </form>
         </PopupWithForm>
-        <ImagePopup isOpen={selectedCard} 
+        <ImagePopup isOpen={isImagePopupOpen} 
         onCardClick={onCardClick} 
+        card={selectedCard}
         />
     </div>
   );

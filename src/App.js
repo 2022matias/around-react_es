@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Main from "./components/Main";
 import PopupWithForm from "./components/PopupWithForm";
 import closeIcon from "./images/close-icon.png";
+import ImagePopup from "./components/ImagePopup";
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(true);
@@ -46,7 +47,7 @@ export default function App() {
     setIsconfirmPopupOpen(!isConfirmPopupOpen);
   }
 
-  function handleCardClick() {
+  function onCardClick() {
     setSelectedCard(!selectedCard);
   }
 
@@ -61,7 +62,8 @@ export default function App() {
       onEditAvatarClick={onEditAvatarClick} 
       onEditProfileClick={onEditProfileClick} 
       onAddPlaceClick={onAddPlaceClick} 
-      onCardClick={onConfirmClick}
+      onConfirmClick={onConfirmClick}
+      onCardClick={onCardClick}
       />
       <Footer />
         <PopupWithForm name={'profile'} 
@@ -156,6 +158,9 @@ export default function App() {
           <button className="popup__button popup__button-avatar">Guardar</button>
         </form>
         </PopupWithForm>
+        <ImagePopup isOpen={selectedCard} 
+        onCardClick={onCardClick} 
+        />
     </div>
   );
 }

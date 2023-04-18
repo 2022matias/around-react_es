@@ -1,5 +1,4 @@
 import closeIcon from "../images/close-icon.png";
-import card from "./Cards";
 
 export default function ImagePopup(props) {
 	return (

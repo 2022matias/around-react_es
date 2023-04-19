@@ -19,7 +19,7 @@ export default function App() {
   const [userAvatar, setUserAvatar] = React.useState();
 
   const [cards, setCards] = React.useState([]);
-  const [selectedCard, setSelectedCard] = React.useState({});
+  const [selectedCard, setSelectedCard] = React.useState([]);
   
   React.useEffect(() => {
     api.getUserInfo().then((res) => {

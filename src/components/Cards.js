@@ -17,7 +17,7 @@ function Card(props) {
               <h3 className="element__name">{props.card.name}</h3>
               <div className="element__div">
                 <button className="element__heart"></button>
-                <div className="element__contador"></div>
+                <div className="element__contador">{props.card.likes.length}</div>
               </div>
               <button className="element__trash" onClick={props.onConfirmClick}></button>
             </div>

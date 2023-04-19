@@ -1,5 +1,6 @@
 {
   "name": "around-react_es",
+  "homepage": "https://{2022matias}.github.io/{around-react_es}",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -38,7 +39,6 @@
     ]
   },
   "devDependencies": {
-    "homepage": "https://{2022matias}.github.io/{around-react_es}",
     "gh-pages": "^5.0.0"
   }
 }

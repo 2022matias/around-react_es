@@ -6,6 +6,7 @@ import Main from "./components/Main";
 import PopupWithForm from "./components/PopupWithForm";
 import closeIcon from "./images/close-icon.png";
 import ImagePopup from "./components/ImagePopup";
+import { CurrentUserContext } from "./contexts/CurrentUserContext";
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(true);
@@ -14,18 +15,13 @@ export default function App() {
   const [isConfirmPopupOpen, setIsconfirmPopupOpen] = React.useState(true);
   const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(true);
 
-  const [userName, setUserName] = React.useState();
-  const [userDescription, setUserDescription] = React.useState();
-  const [userAvatar, setUserAvatar] = React.useState();
-
   const [cards, setCards] = React.useState([]);
   const [selectedCard, setSelectedCard] = React.useState([]);
+  const [currentUser, setCurrentUser] = React.useState([]);
   
   React.useEffect(() => {
     api.getUserInfo().then((res) => {
-      setUserName(res.name);
-      setUserDescription(res.about);
-      setUserAvatar(res.avatar);
+      setCurrentUser(res);
     })
     api.getCards().then((res) => {
       setCards(res);
@@ -56,18 +52,16 @@ export default function App() {
 
   return (
     <div className="page">
-      <Header />
-      <Main userName={userName} 
-      userDescription={userDescription} 
-      userAvatar={userAvatar} 
-      cards={cards} 
-      onEditAvatarClick={onEditAvatarClick} 
-      onEditProfileClick={onEditProfileClick} 
-      onAddPlaceClick={onAddPlaceClick} 
-      onConfirmClick={onConfirmClick}
-      onCardClick={onCardClick}
-      />
-      <Footer />
+      <CurrentUserContext.Provider value={currentUser}>
+        <Header />
+        <Main cards={cards}
+        onEditAvatarClick={onEditAvatarClick} 
+        onEditProfileClick={onEditProfileClick} 
+        onAddPlaceClick={onAddPlaceClick} 
+        onConfirmClick={onConfirmClick}
+        onCardClick={onCardClick}
+        />
+        <Footer />
         <PopupWithForm name={'profile'} 
         isOpen={isEditProfilePopupOpen}>
           <form className="popup__container" noValidate>
@@ -164,6 +158,7 @@ export default function App() {
         onCardClick={onCardClick} 
         card={selectedCard}
         />
+      </CurrentUserContext.Provider>
     </div>
   );
 }

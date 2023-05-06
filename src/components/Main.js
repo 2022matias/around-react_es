@@ -4,10 +4,13 @@ import editButton from "../images/edit-button.png";
 import profileAddButton from "../images/add-button.png";
 import Card from "./Cards";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { api } from "../utils/api";
+import setCards from "../App";
 
   
 function Main(props) {
   const currentUser = React.useContext(CurrentUserContext);
+
 	return(
 		<>
 			<section className="profile">
@@ -31,10 +34,16 @@ function Main(props) {
         />
       </section>
 
-      
+    
 
       <section className="elements">
         {props.cards.map((card) => {
+          function handleCardLike(card) {
+            const isLiked = card.like.some(i => i.id === currentUser.id);
+            api.giveLike(card._id).then((newCard) =>{
+              setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
+            });
+          }
           return (
             <Card key={card._id} 
             card={card} 

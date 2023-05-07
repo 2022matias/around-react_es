@@ -15,9 +15,9 @@ function Card(props) {
   // function handleLikeClick () {
   //   props.onCardLike(props.card)
   // }
-  function handleCardDelete () {
-    props.onCarDelete(props.card)
-  }
+  // function handleCardDelete () {
+  //   props.onCardDelete(props.card)
+  // }
 
 	return (
 		<>
@@ -35,7 +35,7 @@ function Card(props) {
                 <button className={cardlikeButtonClassName} /*onCardLike={handleLikeClick()}*/></button>
                 <div className="element__contador">{}</div>
               </div>
-              {isOwn && <button className="element__trash" onCardDelete={handleCardDelete()}/*onClick={props.onConfirmClick}*/></button>}
+              {isOwn && <button className="element__trash" /*onCardDelete={handleCardDelete()}*/  /*onClick={props.onConfirmClick}*/></button>}
             </div>
           </div>
         </article>

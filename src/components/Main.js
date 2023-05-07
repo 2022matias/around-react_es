@@ -43,19 +43,20 @@ import setCards from "../App";
           //     setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
           //   });
           // }
-          function handleCardDelete(card) {
-            const isOwn = card.owner._id === currentUser._id;
-            api.deleteCard(card._id, isOwn).then((newCard) => {
-              setCards((cards) => cards.filter((c) => c._id === card.id ? newCard : c));
-            });
-          }
+          // function handleCardDelete(card) {
+          //   const isOwn = card.owner._id === currentUser._id;
+          //   api.deleteCard(card._id, isOwn).then((newCard) => {
+          //     setCards((cards) => cards.filter((c) => c._id === card.id ? newCard : c));
+          //   });
+          // }
           return (
             <Card key={card._id} 
             card={card} 
             onConfirmClick={props.onConfirmClick} 
             onCardClick={props.onCardClick}
             // onCardLike={handleCardLike(card)}
-            onCardDelete={handleCardDelete(card)}/>
+            //onCardDelete={handleCardDelete(card)}
+            />
           )
         })}
       </section>

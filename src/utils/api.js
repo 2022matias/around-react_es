@@ -69,6 +69,14 @@ export class Api {
     return this.returnFetch(`cards/likes/${cardId}`, requestOptions);
   }
 
+  handleLike(cardId) {
+    const requestOptions = {
+      method: "PATCH",
+      headers: this._header,
+    };
+    return this.returnFetch(`cards/likes/${cardId}`, requestOptions);
+  }
+
   removeLike(cardId) {
     const requestOptions = {
       method: "DELETE",

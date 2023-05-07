@@ -7,8 +7,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/api";
 import setCards from "../App";
 
-  
-function Main(props) {
+  function Main(props) {
   const currentUser = React.useContext(CurrentUserContext);
 
 	return(
@@ -38,17 +37,25 @@ function Main(props) {
 
       <section className="elements">
         {props.cards.map((card) => {
-          function handleCardLike(card) {
-            const isLiked = card.like.some(i => i.id === currentUser.id);
-            api.giveLike(card._id).then((newCard) =>{
-              setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
+          // function handleCardLike(card) {
+          //   const isLiked = card.like.some(i => i.id === currentUser.id);
+          //   api.handleLike(card._id, !isLiked).then((newCard) => {
+          //     setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
+          //   });
+          // }
+          function handleCardDelete(card) {
+            const isOwn = card.owner._id === currentUser._id;
+            api.deleteCard(card._id, isOwn).then((newCard) => {
+              setCards((cards) => cards.filter((c) => c._id === card.id ? newCard : c));
             });
           }
           return (
             <Card key={card._id} 
             card={card} 
             onConfirmClick={props.onConfirmClick} 
-            onCardClick={props.onCardClick}/>
+            onCardClick={props.onCardClick}
+            // onCardLike={handleCardLike(card)}
+            onCardDelete={handleCardDelete(card)}/>
           )
         })}
       </section>

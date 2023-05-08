@@ -12,10 +12,10 @@ export default function EditProfilePopup(props) {
 
   
   React.useEffect(() => {
-      setName(currentUser.name);
-			setDescription(currentUser.about)
-		}, [currentUser]);
-	
+		setName(currentUser.name);
+		setDescription(currentUser.about)
+	}, [currentUser]);
+
 	function handleSubmit(e) {
 		e.preventDefault();
 		props.onUpdateUser({
@@ -32,11 +32,11 @@ export default function EditProfilePopup(props) {
 	return (
 		<CurrentUserContext.Provider>
 			<PopupWithForm name={'profile'} 
-        isOpen={props.isOpen} onSubmit={handleSubmit}>
-          <form className="popup__container" noValidate>
+        isOpen={props.isOpen} >
+        <form onSubmit={handleSubmit} className="popup__container" noValidate>
           <img
             src={closeIcon}
-            className="popup__close-icon" onClick={props.onClick}
+            className="popup__close-icon" onClick={props.onClose}
             alt="boton para cerrar el formulario"
           />
           <h3 className="popup__title">Editar perfil</h3>

@@ -8,6 +8,7 @@ import closeIcon from "./images/close-icon.png";
 import ImagePopup from "./components/ImagePopup";
 import { CurrentUserContext } from "./contexts/CurrentUserContext";
 import EditProfilePopup from "./components/EditProfilePopup";
+import EditAvatarPopup from "./components/EditAvatarPopup";
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(true);
@@ -56,6 +57,13 @@ export default function App() {
       onEditProfileClick();
     })
   }
+
+    function handleUpdateAvatar() {
+      api.updateAvatar().then((res) => {
+        setCurrentUser(res);
+        onEditAvatarClick();
+      })
+  }
   // function closeAllPopus() {
   //   onEditAvatarClick()
   //   onEditProfileClick()                   cerraria y abiria todos
@@ -76,7 +84,8 @@ export default function App() {
         onCardClick={onCardClick}
         />
         <Footer />
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClick={onEditProfileClick} onUpdateUser={handleUpdateUser}/>
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={onEditProfileClick} onUpdateUser={handleUpdateUser} />
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={onEditAvatarClick} onUpdateAvatar={handleUpdateAvatar}/>
         <PopupWithForm name={'card'} 
         isOpen={isAddPlacePopupOpen}>
           <form className="popup__container popup__container_card">
@@ -118,25 +127,6 @@ export default function App() {
           <button className="popup__button confirm">Si</button>
         </form>
         </PopupWithForm>
-        <PopupWithForm name={'avatar'} 
-        isOpen={isEditAvatarPopupOpen}>
-          <form className="popup__container popup__container-avatar" noValidate>
-          <img
-            src={closeIcon}
-            className="popup__close-icon close-avatar" onClick={onEditAvatarClick}
-            alt="boton para cerrar el formulario"
-          />
-          <h3 className="popup__title popup__title-avatar">Cambiar foto de perfil</h3>
-          <input
-            id="popup__avatar-input"
-            type="url"
-            className="popup__url popup__input"
-            placeholder="Enlace a la imagen"
-          />
-          <span className="popup__avatar-input-error"></span>
-          <button className="popup__button popup__button-avatar">Guardar</button>
-        </form>
-        </PopupWithForm>
         <ImagePopup isOpen={isImagePopupOpen} 
         onCardClick={onCardClick} 
         card={selectedCard}
@@ -144,4 +134,5 @@ export default function App() {
       </CurrentUserContext.Provider>
     </div>
   );
+
 }

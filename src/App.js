@@ -7,6 +7,7 @@ import PopupWithForm from "./components/PopupWithForm";
 import closeIcon from "./images/close-icon.png";
 import ImagePopup from "./components/ImagePopup";
 import { CurrentUserContext } from "./contexts/CurrentUserContext";
+import EditProfilePopup from "./components/EditProfilePopup";
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(true);
@@ -49,6 +50,19 @@ export default function App() {
     setSelectedCard(card)
   }
 
+  function handleUpdateUser() {
+    api.editProfile().then((res) => {
+      setCurrentUser(res);
+      onEditProfileClick();
+    })
+  }
+  // function closeAllPopus() {
+  //   onEditAvatarClick()
+  //   onEditProfileClick()                   cerraria y abiria todos
+  //   onAddPlaceClick()
+  //   onConfirmClick()
+  // }
+
 
   return (
     <div className="page">
@@ -62,38 +76,7 @@ export default function App() {
         onCardClick={onCardClick}
         />
         <Footer />
-        <PopupWithForm name={'profile'} 
-        isOpen={isEditProfilePopupOpen}>
-          <form className="popup__container" noValidate>
-          <img
-            src={closeIcon}
-            className="popup__close-icon" onClick={onEditProfileClick}
-            alt="boton para cerrar el formulario"
-          />
-          <h3 className="popup__title">Editar perfil</h3>
-          <input
-            id="popup__name-input"
-            type="text"
-            className="popup__name popup__input"
-            placeholder="Inserte su Nombre"
-            minLength="2"
-            maxength="40"
-            required
-          />
-          <span className="popup__name-input-error"></span>
-          <input
-            id="popup__skill-input"
-            type="text"
-            className="popup__skill popup__input"
-            placeholder="Inserte su Skill"
-            minLength="2"
-            maxength="200"
-            required
-          />
-          <span className="popup__skill-input-error"></span>
-          <button className="popup__button">Guardar</button>
-        </form>
-        </PopupWithForm>
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClick={onEditProfileClick} onUpdateUser={handleUpdateUser}/>
         <PopupWithForm name={'card'} 
         isOpen={isAddPlacePopupOpen}>
           <form className="popup__container popup__container_card">

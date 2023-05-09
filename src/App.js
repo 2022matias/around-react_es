@@ -51,15 +51,15 @@ export default function App() {
     setSelectedCard(card)
   }
 
-  function handleUpdateUser() {
-    api.editProfile().then((res) => {
+  function handleUpdateUser({name, about}) {
+    api.editProfile(name, about).then((res) => {
       setCurrentUser(res);
       onEditProfileClick();
     })
   }
 
-    function handleUpdateAvatar() {
-      api.updateAvatar().then((res) => {
+    function handleUpdateAvatar(avatar) {
+      api.updateAvatar(avatar).then((res) => {
         setCurrentUser(res);
         onEditAvatarClick();
       })

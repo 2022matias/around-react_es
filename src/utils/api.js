@@ -71,7 +71,7 @@ export class Api {
 
   handleLike(cardId) {
     const requestOptions = {
-      method: "PATCH",
+      method: "PUT",
       headers: this._header,
     };
     return this.returnFetch(`cards/likes/${cardId}`, requestOptions);
@@ -85,12 +85,12 @@ export class Api {
     return this.returnFetch(`cards/likes/${cardId}`, requestOptions);
   }
 
-  updateAvatar(avatar) {
+  updateAvatar({avatar}) {
     const requestOptions = {
       method: "PATCH",
       headers: this._header,
       body: JSON.stringify({
-        avatar: avatar
+        avatar,
       }),
     };
   

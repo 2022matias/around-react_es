@@ -7,7 +7,6 @@ export default function EditProfilePopup(props) {
 	const currentUser = React.useContext(CurrentUserContext);
 	const [name, setName] = React.useState();
   const [description, setDescription] = React.useState();
-	const [newUser, setNewUser] = React.useState({ name:'', about:''});
 
 
   
@@ -19,14 +18,17 @@ export default function EditProfilePopup(props) {
 	function handleSubmit(e) {
 		e.preventDefault();
 		props.onUpdateUser({
-			name: name,
+			name,
 			about: description,
 		});
 	}
-
-	function handleInputChange(e) {
-		setNewUser({ ...newUser, [e.target.name] : e.target.value})
+	function handleInputChangeName(e) {
+		setName(e.target.value);
 	}
+	function handleInputChangeAbout(e) {
+		setDescription(e.target.value);
+	}
+	
 
 
 	return (
@@ -41,7 +43,7 @@ export default function EditProfilePopup(props) {
           />
           <h3 className="popup__title">Editar perfil</h3>
           <input
-						onChange={handleInputChange}
+						onChange={handleInputChangeName}
 						name="name"
             id="popup__name-input"
             type="text"
@@ -53,7 +55,7 @@ export default function EditProfilePopup(props) {
           />
           <span className="popup__name-input-error"></span>
           <input
-						onChange={handleInputChange}
+						onChange={handleInputChangeAbout}
 						name="about"
             id="popup__skill-input"
             type="text"

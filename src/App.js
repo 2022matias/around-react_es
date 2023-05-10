@@ -9,6 +9,7 @@ import ImagePopup from "./components/ImagePopup";
 import { CurrentUserContext } from "./contexts/CurrentUserContext";
 import EditProfilePopup from "./components/EditProfilePopup";
 import EditAvatarPopup from "./components/EditAvatarPopup";
+import AddPlacePopup from "./components/AddPlacePopup";
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(true);
@@ -86,35 +87,7 @@ export default function App() {
         <Footer />
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={onEditProfileClick} onUpdateUser={handleUpdateUser} />
         <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={onEditAvatarClick} onUpdateAvatar={handleUpdateAvatar}/>
-        <PopupWithForm name={'card'} 
-        isOpen={isAddPlacePopupOpen}>
-          <form className="popup__container popup__container_card">
-          <img
-            src={closeIcon}
-            className="popup__close-icon" onClick={onAddPlaceClick}
-            alt="boton para cerrar el formulario"
-          />
-          <h3 className="popup__title">Nuevo lugar</h3>
-          <input
-            id="popup__place-input"
-            type="text"
-            className="popup__place popup__input"
-            placeholder="Título"
-            minLength="2"
-            maxLength="30"
-            required
-          />
-          <span className="popup__place-input-error"></span>
-          <input
-            id="popup__url-input"
-            type="url"
-            className="popup__url popup__input"
-            placeholder="Enlace a la imagen"
-          />
-          <span className="popup__url-input-error"></span>
-          <button className="popup__button">Crear</button>
-        </form>
-        </PopupWithForm>
+        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={onAddPlaceClick} />
         <PopupWithForm name={'question'} 
         isOpen={isConfirmPopupOpen}>
           <form className="popup__container popup__container-confirm" noValidate>

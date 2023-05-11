@@ -4,11 +4,28 @@ import closeIcon from "../images/close-icon.png";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function AddPlacePopup(props) {
+  const [place, setPlace] = React.useState();
+  const [url, setUrl] = React.useState();
+
+  function handleAddPlaceSubmit(e) {
+    e.preventDefault();
+    props.onAddPlace({
+      place: place,
+      url: url,
+    })
+  }
+
+  function handleInputChangePlace(e) {
+		setPlace(e.target.value);
+	}
+	function handleInputChangeUrl(e) {
+		setUrl(e.target.value);
+	}
 	return (
 		<CurrentUserContext.Provider>
 			<PopupWithForm name={'card'} 
         isOpen={props.isOpen}>
-          <form className="popup__container popup__container_card">
+          <form onSubmit={handleAddPlaceSubmit} className="popup__container popup__container_card">
           <img
             src={closeIcon}
             className="popup__close-icon" onClick={props.onClose}
@@ -16,6 +33,7 @@ function AddPlacePopup(props) {
           />
           <h3 className="popup__title">Nuevo lugar</h3>
           <input
+            onChange={handleInputChangePlace}
             id="popup__place-input"
             type="text"
             className="popup__place popup__input"
@@ -26,6 +44,7 @@ function AddPlacePopup(props) {
           />
           <span className="popup__place-input-error"></span>
           <input
+            onChange={handleInputChangeUrl}
             id="popup__url-input"
             type="url"
             className="popup__url popup__input"

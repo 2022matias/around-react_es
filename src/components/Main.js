@@ -5,7 +5,7 @@ import profileAddButton from "../images/add-button.png";
 import Card from "./Cards";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/api";
-import setCards from "../App";
+
 
   function Main(props) {
   const currentUser = React.useContext(CurrentUserContext);
@@ -19,12 +19,7 @@ import setCards from "../App";
     changeImageAvatar();
   }, [currentUser.avatar]);
 
-  // function handleCardLike(card) {
-  //   const isLiked = card.like.some((i) => i.id === currentUser.id);
-  //   api.handleLike(card._id, !isLiked).then((newCard) => {
-  //     setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
-  //   });
-  // }
+
   // function handleCardDelete(card) {
           //   const isOwn = card.owner._id === currentUser._id;
           //   api.deleteCard(card._id, isOwn).then((newCard) => {
@@ -64,7 +59,7 @@ import setCards from "../App";
             card={card} 
             onConfirmClick={props.onConfirmClick} 
             onCardClick={props.onCardClick}
-            //onCardLike={handleCardLike(card)}
+            onCardLike={props.onCardLike}
             //onCardDelete={handleCardDelete(card)}
             />
           )

@@ -59,11 +59,25 @@ export default function App() {
     })
   }
 
-    function handleUpdateAvatar(avatar) {
+  function handleUpdateAvatar(avatar) {
       api.updateAvatar(avatar).then((res) => {
         setCurrentUser(res);
         onEditAvatarClick();
       })
+  }
+
+  function handleUpdatePlace({place, url}) {
+    api.addCard(place, url).then ((res) => {
+      setCards([res, ...cards]);
+      onAddPlaceClick();
+    })
+  }
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i.id === currentUser.id);
+    api.handleLike(card._id, !isLiked).then((newCard) => {
+      setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
+    });
   }
   // function closeAllPopus() {
   //   onEditAvatarClick()
@@ -83,11 +97,12 @@ export default function App() {
         onAddPlaceClick={onAddPlaceClick} 
         onConfirmClick={onConfirmClick}
         onCardClick={onCardClick}
+        onCardLike={handleCardLike}
         />
         <Footer />
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={onEditProfileClick} onUpdateUser={handleUpdateUser} />
         <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={onEditAvatarClick} onUpdateAvatar={handleUpdateAvatar}/>
-        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={onAddPlaceClick} />
+        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={onAddPlaceClick} onAddPlace={handleUpdatePlace}/>
         <PopupWithForm name={'question'} 
         isOpen={isConfirmPopupOpen}>
           <form className="popup__container popup__container-confirm" noValidate>

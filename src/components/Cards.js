@@ -12,9 +12,9 @@ function Card(props) {
   function handleClickCard () {
     props.onCardClick(props.card)
   }
-  // function handleLikeClick () {
-  //   props.onCardLike(props.card)
-  // }
+  function handleLikeClick () {
+    props.onCardLike(props.card)
+  }
   // function handleCardDelete () {
   //   props.onCardDelete(props.card)
   // }
@@ -32,7 +32,7 @@ function Card(props) {
             <div className="element__info">
               <h3 className="element__name">{props.card.name}</h3>
               <div className="element__div">
-                <button className={cardlikeButtonClassName} /*onClick={handleLikeClick}*/></button>
+                <button className={cardlikeButtonClassName} onClick={handleLikeClick}></button>
                 <div className="element__contador">{}</div>
               </div>
               {isOwn && <button className="element__trash" /*onCardDelete={handleCardDelete}*/  /*onClick={props.onConfirmClick}*/></button>}

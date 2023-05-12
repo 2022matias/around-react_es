@@ -4,7 +4,7 @@ import editButton from "../images/edit-button.png";
 import profileAddButton from "../images/add-button.png";
 import Card from "./Cards";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import { api } from "../utils/api";
+
 
 
   function Main(props) {
@@ -18,14 +18,6 @@ import { api } from "../utils/api";
   useEffect(() => {
     changeImageAvatar();
   }, [currentUser.avatar]);
-
-
-  // function handleCardDelete(card) {
-          //   const isOwn = card.owner._id === currentUser._id;
-          //   api.deleteCard(card._id, isOwn).then((newCard) => {
-          //     setCards((cards) => cards.filter((c) => c._id === card.id ? newCard : c));
-          //   });
-          // }
 
 	return(
 		<>
@@ -60,7 +52,7 @@ import { api } from "../utils/api";
             onConfirmClick={props.onConfirmClick} 
             onCardClick={props.onCardClick}
             onCardLike={props.onCardLike}
-            //onCardDelete={handleCardDelete(card)}
+            onCardDelete={props.onCardDelete}
             />
           )
         })}

@@ -29,7 +29,7 @@ export default function App() {
     api.getCards().then((res) => {
       setCards(res);
     })
-  }, []);
+  }, [cards]);
 
   function onEditAvatarClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -74,18 +74,19 @@ export default function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i.id === currentUser.id);
-    api.handleLike(card._id, !isLiked).then((newCard) => {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
       setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
     });
   }
-  // function closeAllPopus() {
-  //   onEditAvatarClick()
-  //   onEditProfileClick()                   cerraria y abiria todos
-  //   onAddPlaceClick()
-  //   onConfirmClick()
-  // }
 
+  
+  function handleCardDelete(card) {
+    const isOwn = card.owner._id === currentUser._id;
+    api.deleteCard(card._id, isOwn).then((newCard) => {
+      setCards((cards) => cards.filter((c) => c._id === card.id ? newCard : c));
+    });
+  }
 
   return (
     <div className="page">
@@ -98,6 +99,7 @@ export default function App() {
         onConfirmClick={onConfirmClick}
         onCardClick={onCardClick}
         onCardLike={handleCardLike}
+        onCardDelete={handleCardDelete}
         />
         <Footer />
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={onEditProfileClick} onUpdateUser={handleUpdateUser} />

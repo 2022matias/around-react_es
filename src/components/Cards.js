@@ -5,19 +5,16 @@ function Card(props) {
   const currentUser = React.useContext(CurrentUserContext);
   const isOwn = props.card.owner._id === currentUser._id;
   const isLiked = props.card.likes.some(i => i._id === currentUser._id);
-  const cardlikeButtonClassName = (
-    `${isLiked ? 'element__heart element__heart-black' : 'element__heart'}`
-  );
-
+  const cardlikeButtonClassName = isLiked ? 'element__heart element__heart-black' : 'element__heart';
   function handleClickCard () {
     props.onCardClick(props.card)
   }
   function handleLikeClick () {
     props.onCardLike(props.card)
   }
-  // function handleCardDelete () {
-  //   props.onCardDelete(props.card)
-  // }
+  function handleCardDelete () {
+    props.onCardDelete(props.card)
+  }
 
 	return (
 		<>
@@ -35,7 +32,7 @@ function Card(props) {
                 <button className={cardlikeButtonClassName} onClick={handleLikeClick}></button>
                 <div className="element__contador">{}</div>
               </div>
-              {isOwn && <button className="element__trash" /*onCardDelete={handleCardDelete}*/  /*onClick={props.onConfirmClick}*/></button>}
+              {isOwn && <button className="element__trash" onClick={handleCardDelete}  /*onClick={props.onConfirmClick}*/></button>}
             </div>
           </div>
         </article>

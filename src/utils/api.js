@@ -68,21 +68,17 @@ export class Api {
     };
     return this.returnFetch(`cards/likes/${cardId}`, requestOptions);
   }
-
-  handleLike(cardId) {
-    const requestOptions = {
-      method: "PUT",
-      headers: this._header,
-    };
-    return this.returnFetch(`cards/likes/${cardId}`, requestOptions);
-  }
-
+  
   removeLike(cardId) {
     const requestOptions = {
       method: "DELETE",
       headers: this._header,
     };
     return this.returnFetch(`cards/likes/${cardId}`, requestOptions);
+  }
+
+  changeLikeCardStatus(cardId, liked) {
+    return liked ? this.giveLike(cardId) : this.removeLike(cardId);
   }
 
   updateAvatar({avatar}) {

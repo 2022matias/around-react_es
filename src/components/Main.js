@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Pencil from "../images/pencil.png";
 import editButton from "../images/edit-button.png";
 import profileAddButton from "../images/add-button.png";
-import Card from "./Cards";
+import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 

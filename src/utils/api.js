@@ -1,4 +1,4 @@
-export class Api {
+export default class Api {
   constructor(options) {
     this._options = options;
     this._header = new Headers();
@@ -68,7 +68,7 @@ export class Api {
     };
     return this.returnFetch(`cards/likes/${cardId}`, requestOptions);
   }
-  
+
   removeLike(cardId) {
     const requestOptions = {
       method: "DELETE",

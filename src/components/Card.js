@@ -30,7 +30,7 @@ function Card(props) {
               <h3 className="element__name">{props.card.name}</h3>
               <div className="element__div">
                 <button className={cardlikeButtonClassName} onClick={handleLikeClick}></button>
-                <div className="element__contador">{}</div>
+                <div className="element__contador">{props.card.likes.length}</div>
               </div>
               {isOwn && <button className="element__trash" onClick={handleCardDelete}  /*onClick={props.onConfirmClick}*/></button>}
             </div>

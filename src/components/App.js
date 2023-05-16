@@ -29,7 +29,7 @@ export default function App() {
     api.getCards().then((res) => {
       setCards(res);
     })
-  }, [cards]);
+  }, []);
 
   function onEditAvatarClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -81,12 +81,16 @@ export default function App() {
   }
 
   
+  
+
   function handleCardDelete(card) {
-    const isOwn = card.owner._id === currentUser._id;
-    api.deleteCard(card._id, isOwn).then((newCard) => {
-      setCards((cards) => cards.filter((c) => c._id === card.id ? newCard : c));
-    });
+    api.deleteCard(card._id).then(() => {
+        const newCards = cards.filter((c) => c._id !== card._id);
+        setCards(newCards);
+      });
   }
+  
+
 
   return (
     <div className="page">
